@@ -22,6 +22,7 @@
             <artifactId>commons-math3</artifactId>
             <version>${math3.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
