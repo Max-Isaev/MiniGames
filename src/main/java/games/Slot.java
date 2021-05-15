@@ -1,10 +1,14 @@
 package games;
 
-import static java.lang.Math.*;
+import org.slf4j.Logger;
+import static java.lang.Math.random;
+import static java.lang.Math.round;
 
 public class Slot {
 
-    public static void main(String[] args) {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Slot.class);
+
+    public static void main() {
 
         int money = 100;
         int size = 3;
@@ -14,21 +18,22 @@ public class Slot {
         while (money >= 0) {
             int[] counters = fillCounters(size);
 
-            System.out.println("У Вас " + money + ", ставка - $10. Крутим барабаны! Розыгрыш принёс следующие результаты: "
-                    + counters[0] + " " + counters[1] + " " + counters[2]);
+            log.info("У Вас {}, ставка - $10. Крутим барабаны! Розыгрыш принёс следующие результаты: {} {} {} ",
+                    money, counters[0], counters[1], counters[2]);
 
             money -= bet;
 
             if (checkCounters(counters)) {
                 money += win;
-                System.out.println("Вы выиграли! Ваш приз - $1`000, и ваш капитал теперь составляет:" + money);
+
+                log.info("Вы выиграли! Ваш приз - $1`000, и ваш капитал теперь составляет: {}", money);
             }
 
         }
 
     }
 
-    static int[] fillCounters (int size) {
+    static int[] fillCounters(int size) {
 
         int[] counters = new int[size];
 
@@ -38,12 +43,12 @@ public class Slot {
         return counters;
     }
 
-    static boolean checkCounters (int[] counters) {
+    static boolean checkCounters(int[] counters) {
 
         boolean result = true;
 
         for (int i = 0; i < counters.length - 1; i++) {
-          result = counters[i] == counters[i+1] && result;
+            result = counters[i] == counters[i + 1] && result;
         }
 
         return result;
